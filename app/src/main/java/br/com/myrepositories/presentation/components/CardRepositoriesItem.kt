@@ -27,8 +27,8 @@ import coil.compose.AsyncImage
 
 @Composable
 fun CardRepositoriesItem(
-    image:String?,
-    title:String?
+    image: String?,
+    title: String?
 ) {
     Card(
         modifier = Modifier

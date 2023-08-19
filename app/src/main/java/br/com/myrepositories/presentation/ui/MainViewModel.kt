@@ -18,25 +18,26 @@ class MainViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<MyRepositoriesState>(MyRepositoriesState.Loading)
-    val state: StateFlow<MyRepositoriesState> get() = _state
+    private val _stateRepositories =
+        MutableStateFlow<MyRepositoriesState>(MyRepositoriesState.Loading)
+    val stateRepositories: StateFlow<MyRepositoriesState> get() = _stateRepositories
 
     private val _stateUser = MutableStateFlow<UserState>(UserState.Loading)
     val stateUser: StateFlow<UserState> get() = _stateUser
 
-    fun loadScreen() = launch {
+    fun loadAllRepositories() = launch {
         getAllMyRepositoriesUseCase.invoke().collect { event ->
             when (event) {
                 is Event.Loading -> {
-                    _state.value = MyRepositoriesState.Loading
+                    _stateRepositories.value = MyRepositoriesState.Loading
                 }
 
                 is Event.Data -> {
-                    _state.value = MyRepositoriesState.ScreenData(event.data)
+                    _stateRepositories.value = MyRepositoriesState.ScreenData(event.data)
                 }
 
                 is Event.Error -> {
-                    _state.value = MyRepositoriesState.Error(event.error)
+                    _stateRepositories.value = MyRepositoriesState.Error(event.error)
                 }
             }
         }

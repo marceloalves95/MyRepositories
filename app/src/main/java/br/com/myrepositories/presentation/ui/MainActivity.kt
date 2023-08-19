@@ -4,8 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -36,7 +37,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainViewModel.apply {
-            loadScreen()
+            loadAllRepositories()
             loadUser()
         }
         setContent {
@@ -50,7 +51,7 @@ class MainActivity : ComponentActivity() {
         viewModel: MainViewModel
     ) {
 
-        val state by viewModel.state.collectAsState()
+        val state by viewModel.stateRepositories.collectAsState()
         val stateUser by viewModel.stateUser.collectAsState()
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
         val scope = rememberCoroutineScope()
@@ -71,7 +72,9 @@ class MainActivity : ComponentActivity() {
                             AppTopBar(scope, drawerState)
                         },
                         content = { padding ->
-                            LoadRepositoriesScreen(padding, state)
+                            Column(modifier = Modifier.padding(padding)) {
+                                LoadRepositoriesState(state)
+                            }
                         }
                     )
                 }
@@ -82,17 +85,17 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun LoadUserState(state: UserState) {
         when (state) {
-            is UserState.ScreenData -> ScreenUserData(user = state.screenData)
-            is UserState.Error -> ScreenUserError(exception = state.exception)
+            is UserState.ScreenData -> ScreenUserData(state.screenData)
+            is UserState.Error -> ScreenUserError(state.exception)
             else -> Unit
         }
     }
 
     @Composable
-    fun LoadRepositoriesScreen(paddingValues: PaddingValues, state: MyRepositoriesState) {
+    fun LoadRepositoriesState(state: MyRepositoriesState) {
         when (state) {
-            is MyRepositoriesState.ScreenData -> ScreenRepositoriesData(paddingValues, myRepositories = state.screenData)
-            is MyRepositoriesState.Error -> ScreenRepositoriesError(paddingValues, exception = state.exception)
+            is MyRepositoriesState.ScreenData -> ScreenRepositoriesData(state.screenData)
+            is MyRepositoriesState.Error -> ScreenRepositoriesError(state.exception)
             else -> Unit
         }
     }

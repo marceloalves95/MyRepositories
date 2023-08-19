@@ -1,6 +1,7 @@
 package br.com.myrepositories.presentation.screen
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,9 +30,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.com.myrepositories.R
 import br.com.myrepositories.domain.models.User
 import br.com.myrepositories.presentation.components.AppTopBar
 import br.com.myrepositories.presentation.components.NavHeader
@@ -126,7 +129,7 @@ fun ScreenUserError(exception: Throwable?) {
                 .padding(vertical = 64.dp),
             contentAlignment = Alignment.Center
         ) {
-            Text(text = exception?.message ?: "Erro no carregamento de dados", fontSize = 12.sp)
+            Text(text = exception?.message ?: stringResource(id = R.string.error_repository), fontSize = 12.sp)
         }
         Spacer(modifier = Modifier.height(16.dp))
         items.forEachIndexed { index, item ->
@@ -185,7 +188,9 @@ fun ScreenUserDataPreview() {
                         AppTopBar(scope, drawerState)
                     },
                     content = { padding ->
-                        ScreenRepositoriesData(padding, myRepositories = listOf(dummyMyRepositories))
+                        Column(modifier = Modifier.padding(padding)) {
+                            ScreenRepositoriesData(listOf(dummyMyRepositories))
+                        }
                     }
                 )
             }
@@ -200,7 +205,6 @@ fun ScreenUserErrorPreview() {
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
-    val throwable = Throwable()
 
     MyRepositoriesTheme {
         Surface(
@@ -209,7 +213,7 @@ fun ScreenUserErrorPreview() {
         ) {
             ModalNavigationDrawer(
                 drawerContent = {
-                    ScreenUserError(exception = throwable)
+                    ScreenUserError(Throwable())
                 },
                 drawerState = drawerState
             ) {
@@ -218,7 +222,9 @@ fun ScreenUserErrorPreview() {
                         AppTopBar(scope, drawerState)
                     },
                     content = { padding ->
-                        ScreenRepositoriesError(padding, exception = throwable)
+                        Column(modifier = Modifier.padding(padding)) {
+                            ScreenRepositoriesError(Throwable())
+                        }
                     }
                 )
             }

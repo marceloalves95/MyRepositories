@@ -6,8 +6,8 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 
 suspend fun <T> executeFlow(
-    getRepository:suspend (() -> T)
-):Flow<Event<T>> = flow {
+    getRepository: suspend (() -> T)
+): Flow<Event<T>> = flow {
     emit(Event.Loading)
     val data = getRepository()
     emit(Event.Data(data))

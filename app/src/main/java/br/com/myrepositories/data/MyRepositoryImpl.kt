@@ -8,9 +8,7 @@ import br.com.myrepositories.domain.models.User
 import br.com.myrepositories.domain.repository.MyRepository
 import br.com.myrepositories.extensions.network.parseResponse
 import br.com.myrepositories.extensions.network.toResponse
-import dagger.Provides
 import javax.inject.Inject
-import javax.inject.Singleton
 
 class MyRepositoryImpl @Inject constructor(
     private val myRepositoriesApi: MyRepositoriesApi

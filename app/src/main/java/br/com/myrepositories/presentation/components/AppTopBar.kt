@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 fun AppTopBar(
     scope: CoroutineScope,
     drawerState: DrawerState
-){
+) {
     TopAppBar(
         title = { Text(text = stringResource(id = R.string.app_name)) },
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(

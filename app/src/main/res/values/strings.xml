@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MyRepositories</string>
+    <string name="error_repository">Erro no carregamento dos dados</string>
 </resources>

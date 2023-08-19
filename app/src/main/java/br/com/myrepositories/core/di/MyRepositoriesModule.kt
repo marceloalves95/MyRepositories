@@ -44,6 +44,7 @@ object MyRepositoriesModule {
 
     @Singleton
     @Provides
-    fun provideRepository(myRepositoriesApi: MyRepositoriesApi):MyRepository = MyRepositoryImpl(myRepositoriesApi)
+    fun provideRepository(myRepositoriesApi: MyRepositoriesApi): MyRepository =
+        MyRepositoryImpl(myRepositoriesApi)
 
 }

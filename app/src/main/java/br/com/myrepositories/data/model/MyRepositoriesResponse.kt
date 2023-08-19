@@ -26,7 +26,7 @@ data class MyRepositoriesResponse(
     val updatedAt: String?,
     @SerializedName("url")
     val url: String?
-):Parcelable
+) : Parcelable
 
 @Parcelize
 data class OwnerResponse(
@@ -40,7 +40,7 @@ data class OwnerResponse(
     val reposUrl: String?,
     @SerializedName("url")
     val url: String?
-):Parcelable
+) : Parcelable
 
 @Parcelize
 data class UserResponse(
@@ -72,4 +72,4 @@ data class UserResponse(
     val updatedAt: String?,
     @SerializedName("url")
     val url: String?
-):Parcelable
+) : Parcelable
