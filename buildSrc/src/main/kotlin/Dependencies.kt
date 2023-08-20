@@ -41,15 +41,21 @@ object Dependencies {
         const val glide = "com.github.bumptech.glide:glide:${Version.glide_version}"
         const val dagger_hilt = "com.google.dagger:hilt-android:${Version.dagger_hilt_version}"
         const val dagger_hilt_compiler =
-            "com.google.dagger:hilt-compiler:${Version.dagger_hilt_version}"
+            "com.google.dagger:hilt-android-compiler:${Version.dagger_hilt_version}"
         const val coil_compose = "io.coil-kt:coil-compose:${Version.coil_version}"
         const val coil_svg = "io.coil-kt:coil-svg:${Version.coil_version}"
         const val system_ui_controller = "com.google.accompanist:accompanist-systemuicontroller:${Version.accompanist_version}"
     }
 
     object Testing {
-        const val assertK = "com.willowtreeapps.assertk:assertk-jvm:${Version.assertK_version}"
+        const val kotlinx_coroutines_test="org.jetbrains.kotlinx:kotlinx-coroutines-test:${Version.kotlinx_coroutines_test_version}"
+        const val arch_core_testing = "androidx.arch.core:core-testing:${Version.arch_core_testing_version}"
+        const val mockk = "io.mockk:mockk:${Version.mockk_version}"
+        const val objenesis="org.objenesis:objenesis:${Version.objenesis_version}"
+        const val robolectric = "org.robolectric:robolectric:${Version.robolectric_version}"
+        const val mockwebserver="com.squareup.okhttp3:mockwebserver:${Version.mockwebserver_version}"
         const val junit = "junit:junit:${Version.junit_version}"
+        const val assertK = "com.willowtreeapps.assertk:assertk-jvm:${Version.assertK_version}"
         const val dagger_hilt_testing =
             "com.google.dagger:hilt-android-testing:${Version.dagger_hilt_version}"
 

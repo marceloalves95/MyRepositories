@@ -1,9 +1,10 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("com.google.dagger.hilt.android")
+    id("dagger.hilt.android.plugin")
     id("kotlin-kapt")
     id("kotlin-parcelize")
+    id("jacoco-reports")
 }
 
 android {
@@ -30,6 +31,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            enableUnitTestCoverage = true
         }
     }
     compileOptions {
@@ -45,13 +47,14 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
     }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
     hilt {
         enableAggregatingTask = true
+    }
+    tasks.withType<Test> {
+        extensions.configure(JacocoTaskExtension::class) {
+            isIncludeNoLocationClasses = true
+            excludes = listOf("jdk.internal.*")
+        }
     }
 }
 
@@ -59,6 +62,7 @@ dependencies {
 
     implementation(project(":libraries:network"))
     implementation(project(":libraries:extensions"))
+    implementation(project(":libraries:testing"))
 
     implementation(Dependencies.Main.core_ktx)
     implementation(Dependencies.Lifecycle.lifecycle_runtime)
@@ -97,10 +101,19 @@ dependencies {
     implementation(Dependencies.ThirdParty.dagger_hilt)
     kapt(Dependencies.ThirdParty.dagger_hilt_compiler)
 
+    //Unit Test
+    testImplementation(Dependencies.Testing.assertK)
+    testImplementation(Dependencies.Testing.robolectric)
+    testImplementation(Dependencies.Testing.mockk)
+    testImplementation(Dependencies.Testing.junit)
+    testImplementation(Dependencies.Testing.mockwebserver)
     testImplementation(Dependencies.Testing.junit)
     testImplementation(Dependencies.Testing.dagger_hilt_testing)
+
     kaptAndroidTest(Dependencies.ThirdParty.dagger_hilt_compiler)
     kaptTest(Dependencies.ThirdParty.dagger_hilt_compiler)
+
+    //Instrumental Unit
     androidTestImplementation(Dependencies.Testing.AutomatedTest.ext_junit)
     androidTestImplementation(Dependencies.Testing.AutomatedTest.espresso_core)
     androidTestImplementation(platform(Dependencies.Compose.compose_bom))
