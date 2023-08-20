@@ -1,6 +1,6 @@
 package br.com.myrepositories.data.model
 
-val dummyUser = UserResponse(
+val dummyUserResponse = UserResponse(
     avatarUrl = "https://avatars.githubusercontent.com/u/67604155?v=4",
     bio = "Desenvolvedor Android | Kotlin\\r\\n",
     createdAt = "2020-06-29T18:43:54Z",
@@ -16,7 +16,7 @@ val dummyUser = UserResponse(
     updatedAt = "2023-08-01T00:53:30Z",
     url = "url"
 )
-val dummyOwner = OwnerResponse(
+val dummyOwnerResponse = OwnerResponse(
     avatarUrl = "https://avatars.githubusercontent.com/u/67604155?v=4",
     htmlUrl = "https://github.com/marceloalves95",
     login = "marceloalves95",
@@ -24,13 +24,13 @@ val dummyOwner = OwnerResponse(
     url = "https://api.github.com/users/marceloalves95"
 )
 
-val dummyMyRepositories = MyRepositoriesResponse(
+val dummyMyRepositoriesResponse = MyRepositoriesResponse(
     createdAt = "2020-10-25T15:04:38Z",
     description = "Projeto feito com a linguagem Kotlin, e com funcionalidades básicas de um SGDB (Sistema Gerenciador de Banco de Dados) usando o banco de dados SQLite.",
     fullName = "marceloalves95/Agenda-Telefonica",
     language = "Kotlin",
     name = "Agenda-Telefonica",
-    owner = dummyOwner,
+    owner = dummyOwnerResponse,
     pushedAt = "2021-06-29T20:26:23Z",
     size = 561,
     updatedAt = "2021-06-29T20:26:26Z",

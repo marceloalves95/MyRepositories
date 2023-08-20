@@ -134,12 +134,7 @@ class JacocoReportsPlugin : Plugin<Project> {
             classDirectories.setFrom(files(javaDirectories, kotlinDirectories))
             additionalClassDirs.setFrom(files(coverageSrcDirectories))
             sourceDirectories.setFrom(files(coverageSrcDirectories))
-            executionData.setFrom(
-                files("${buildDir}/jacoco/${testTaskName}.exec", "**/**/*.ec")
-            )
-
-            //executionData.setFrom(fileTree(buildDir).include("/jacoco/*.exec"))
-
+            executionData.setFrom(fileTree(buildDir).include("/jacoco/*.exec"))
 
             reports {
                 xml.required.set(true)

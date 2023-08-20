@@ -4,8 +4,11 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import br.com.myrepositories.data.api.MyRepositoriesApi
 import br.com.myrepositories.data.mapper.toMyRepositories
+import br.com.myrepositories.data.mapper.toUser
 import br.com.myrepositories.data.model.MyRepositoriesResponse
-import br.com.myrepositories.data.model.dummyMyRepositories
+import br.com.myrepositories.data.model.UserResponse
+import br.com.myrepositories.data.model.dummyMyRepositoriesResponse
+import br.com.myrepositories.data.model.dummyUserResponse
 import br.com.myrepositories.testing.BaseTest
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -36,7 +39,7 @@ class MyRepositoryImplTest : BaseTest() {
     fun `should get all repositories when is called with success`() = runBlocking {
 
         //Arrange
-        val response = Response.success(listOf(dummyMyRepositories))
+        val response = Response.success(listOf(dummyMyRepositoriesResponse))
 
         coEvery {
             repositoriesApi.getAllRepository()
@@ -46,7 +49,7 @@ class MyRepositoryImplTest : BaseTest() {
         val result = repository.getAllRepository()
 
         //Assert
-        assertThat(result).isEqualTo(listOf(dummyMyRepositories.toMyRepositories()))
+        assertThat(result).isEqualTo(listOf(dummyMyRepositoriesResponse.toMyRepositories()))
 
         coVerify(exactly = 1) {
             repositoriesApi.getAllRepository()
@@ -74,6 +77,53 @@ class MyRepositoryImplTest : BaseTest() {
         //Assert
         coVerify(exactly = 1) {
             repositoriesApi.getAllRepository()
+        }
+
+        confirmVerified(repositoriesApi)
+    }
+
+    @Test
+    fun `should get user when is called with success`() = runBlocking {
+
+        //Arrange
+        val response = Response.success(dummyUserResponse)
+
+        coEvery {
+            repositoriesApi.getUser()
+        } returns response
+
+        //Act
+        val result = repository.getUser()
+
+        //Assert
+        assertThat(result).isEqualTo(dummyUserResponse.toUser())
+
+        coVerify(exactly = 1) {
+            repositoriesApi.getUser()
+        }
+
+        confirmVerified(repositoriesApi)
+    }
+
+    @Test(expected = HttpException::class)
+    fun `should get user when is called with failure`() = runBlocking {
+
+        //Arrange
+        val responseError = Response.error<UserResponse>(
+            500,
+            "some content".toResponseBody("plain/text".toMediaTypeOrNull())
+        )
+
+        coEvery {
+            repositoriesApi.getUser()
+        } throws HttpException(responseError)
+
+        //Act
+        repository.getUser()
+
+        //Assert
+        coVerify(exactly = 1) {
+            repositoriesApi.getUser()
         }
 
         confirmVerified(repositoriesApi)
