@@ -24,6 +24,6 @@ object Version {
     const val arch_core_testing_version = "2.1.0"
     const val kotlinx_coroutines_test_version = "1.6.4"
     const val robolectric_version = "4.9"
-    const val mockwebserver_version = "4.10.0"
+    const val mockwebserver_version = "5.0.0-alpha.3"
     const val objenesis_version = "3.2"
 }
